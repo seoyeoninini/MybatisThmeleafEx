@@ -1,0 +1,26 @@
+SELECT * FROM tab;
+DROP TABLE bbs PURGE;
+
+CREATE TABLE bbs (
+     num   NUMBER NOT NULL
+     ,name      VARCHAR2(50) NOT NULL
+     ,pwd       VARCHAR2(50) NOT NULL
+     ,subject   VARCHAR2(255) NOT NULL
+     ,content   VARCHAR2(4000) NOT NULL
+     ,ipAddr    VARCHAR2(50) NOT NULL
+     ,hitCount   NUMBER DEFAULT 0
+     ,reg_date    DATE DEFAULT SYSDATE
+     ,CONSTRAINT pk_bbs_num PRIMARY KEY(num)
+);
+
+-- ----------------------------------------
+-- 시퀀스
+SELECT * FROM seq;
+DROP SEQUENCE bbs_seq;
+
+CREATE SEQUENCE bbs_seq
+    INCREMENT BY 1
+    START WITH 1
+    NOMAXVALUE
+    NOCYCLE
+    NOCACHE;

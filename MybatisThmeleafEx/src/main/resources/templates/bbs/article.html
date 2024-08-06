@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<link rel="stylesheet" th:href="@{/dist/css/style.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/dist/css/forms.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/dist/css/board.css}" type="text/css">
+
+<style type="text/css">
+  .body-container { margin: 30px auto; width: 700px; }
+</style>
+
+<script type="text/javascript">
+function deleteOk(num) {
+	if(confirm('게시글을 삭제 하시겠습니까 ?')) {
+		let url = '[[|@{/bbs/delete}?${query}|]]&num=' + num;
+		// let url = '[[@{/bbs/delete(page=${page}, schType=${schType}, kwd=${kwd})}]]&num=' + num;
+		location.href = url;
+	}
+}
+</script>
+</head>
+<body>
+
+<div class="body-container">
+	<div class="body-title">
+	    <h2>▢ 게시판</h2>
+	</div>
+	
+	<div class="body-main">
+		<table class="table table-border table-article">
+			<thead>
+				<tr>
+					<td colspan="2" align="center" th:text="${dto.subject}"></td>
+				</tr>
+			</thead>
+			
+			<tbody>
+				<tr>
+					<td width="50%" th:text="|이름 : ${dto.name}|"></td>
+					<td align="right">
+						[[${dto.reg_date}]] | 조회 [[${dto.hitCount}]]
+					</td>
+				</tr>
+				
+				<tr> <!-- 태그로 처리하고 싶으면 () -->
+					<td colspan="2" valign="top" height="200">
+						[(${dto.content})]
+					</td>
+				</tr>
+				
+				<tr>
+					<td colspan="2">
+						이전글 : 
+						<th:block th:if="${prevDto != null}">
+							<a th:href="|@{/bbs/article}?num=${prevDto.num}&${query}|">[[${prevDto.subject}]]</a>
+						</th:block> 
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						다음글 :
+						<th:block th:if="${nextDto != null}">
+							<a th:href="|@{/bbs/article}?num=${nextDto.num}&${query}|">[[${nextDto.subject}]]</a>
+						</th:block> 
+
+					</td>
+				</tr>
+				<tr style="border-bottom: none;"> <!-- 문자열 결합은 파이프(|) 필수 -->
+					<td colspan="2" align="right" style="padding-top: 3px;" th:text="|From : ${dto.ipAddr}|" ></td>
+				</tr>
+			</tbody>
+			
+		</table>
+		
+		<table class="table">
+			<tr>
+				<td width="50%">
+					<button type="button" class="btn"
+						th:onclick="|location.href='@{/bbs/update(num=${dto.num}, page=${page})}'|">수정</button>
+					<button type="button" class="btn"
+						th:onclick="deleteOk('[[${dto.num}]]')">삭제</button>
+				</td>
+				<td align="right">
+					<button type="button" class="btn"
+						th:if="${#strings.isEmpty(kwd)}"
+						th:onclick="|location.href='@{/bbs/list(page=${page})}'|">리스트</button>
+					<button type="button" class="btn"
+						th:if="${not #strings.isEmpty(kwd)}"
+						th:onclick="|location.href='@{/bbs/list(page=${page}, schType=${schType}, kwd=${kwd})}'|">리스트</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+</div>
+
+</body>
+</html>

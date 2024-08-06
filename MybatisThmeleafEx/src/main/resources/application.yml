@@ -1,0 +1,17 @@
+server:
+  port: 9090
+
+spring:
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false
+
+  datasource:
+    url: jdbc:oracle:thin:@//127.0.0.1:1521/xe
+    hikari:
+      username: sky
+      password: java$!
+
+mybatis:
+  mapper-locations: classpath*:/mybatis/mapper/**/*.xml

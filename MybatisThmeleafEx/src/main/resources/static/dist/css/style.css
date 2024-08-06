@@ -1,0 +1,65 @@
+﻿@charset "UTF-8";
+
+* { padding: 0; margin: 0; }
+*, *::after, *::before { box-sizing: border-box; }
+
+body {
+	font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+	font-size: 14px;
+	color: #222;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: NanumGothic, 나눔고딕, "Malgun Gothic", "맑은 고딕", 돋움, sans-serif;
+}
+
+a { color: #222; text-decoration: none; cursor: pointer; }
+a:active, a:hover { color: #0d58ba; }
+
+/* table */
+.table { width: 100%; border-spacing: 0; border-collapse: collapse; }
+.table th, .table td { padding-top: 10px; padding-bottom: 10px; }
+
+.table-border thead > tr { border-bottom: 1px solid #c6c7c8; }
+.table-border tbody > tr { border-bottom: 1px solid #dee2e6; }
+.table-border tfoot > tr { border-bottom: 1px solid #dee2e6; }
+.td-border td { border: 1px solid #dee2e6; }
+
+tr.hover:hover { cursor: pointer; background: #f5fffa; }
+
+.border { border: 1px solid #212529; }
+.border-none { border: none; }
+.border-top1 { border-top: 1px solid #dee2e6; }
+.border-top2 { border-top: 2px solid #454545; }
+.border-bottom1 { border-bottom: 1px solid #dee2e6; }
+.border-bottom2 { border-bottom: 2px solid #454545; }
+
+.bold { font-weight: bold; }
+.ellipsis { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* clear */
+.clear::after { content:''; display:block; clear: both; }
+
+/* background */
+.bg-light { background:  #f8f9fa; }
+
+
+.body-title {
+    color: #424951;
+    padding-top: 35px;
+    padding-bottom: 7px;
+    margin: 0 0 25px 0;
+    border-bottom: 2px solid #e0f0fe;
+}
+
+.body-title h2 {
+    font-size: 24px;
+    min-width: 300px;
+    font-family:"Malgun Gothic", "맑은 고딕", NanumGothic, 나눔고딕, 돋움, sans-serif;
+    color: #023b6d;
+    font-weight: 700;
+    padding-bottom: 10px;
+    display: inline-block;
+    margin: 0 0 -7px 0;
+    border-bottom: 3px solid #002e5b;
+}

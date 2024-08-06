@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="icon" href="data:;base64,iVBORw0KGgo=">
+
+<link rel="stylesheet" th:href="@{/dist/css/style.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/dist/css/forms.css}" type="text/css">
+<link rel="stylesheet" th:href="@{/dist/css/board.css}" type="text/css">
+
+<style type="text/css">
+  .body-container { margin: 30px auto; width: 700px; }
+</style>
+
+<script type="text/javascript">
+function sendOk() {
+    const f = document.boardForm;
+
+    let str = f.subject.value;
+    if(!str) {
+        alert('제목을 입력하세요. ');
+        f.subject.focus();
+        return;
+    }
+
+    str = f.name.value;
+    if(!str) {
+        alert('이름을 입력하세요. ');
+        f.name.focus();
+        return;
+    }
+
+    str = f.content.value;
+    if(!str) {
+        alert('내용을 입력하세요. ');
+        f.content.focus();
+        return;
+    }
+
+    str = f.pwd.value;
+    if(!str) {
+        alert('패스워드를 입력하세요. ');
+        f.pwd.focus();
+        return;
+    }
+    
+	// f.action = '[[@{/}]]';
+    f.submit();
+}
+</script>
+</head>
+<body>
+
+<div class="body-container">
+	<div class="body-title">
+	    <h2>▢ 게시판</h2>
+	</div>
+	
+	<div class="body-main">
+		<form th:action="@{/bbs/{mode}(mode=${mode})}" name="boardForm" method="post">
+			<table class="table table-border table-form">
+				<tr> 
+					<td>제&nbsp;&nbsp;&nbsp;&nbsp;목</td>
+					<td> 
+						<input type="text" name="subject" maxlength="100" class="form-control" 
+							th:value="${dto!=null ? dto.subject:''}">
+					</td>
+				</tr>
+				
+				<tr> 
+					<td>작성자</td>
+					<td> 
+						<input type="text" name="name" maxlength="10" class="form-control" 
+							   th:value = "${dto?.name}">
+					</td>
+				</tr>
+				
+				<tr> 
+					<td>내&nbsp;&nbsp;&nbsp;&nbsp;용</td>
+					<td valign="top"> 
+						<textarea name="content" class="form-control" th:text = "${dto?.content}" ></textarea>
+					</td>
+				</tr>
+				
+				<tr>
+					<td>패스워드</td>
+					<td> 
+						<input type="password" name="pwd" maxlength="10" class="form-control">
+						(게시물 수정 및 삭제시 필요 !!!)
+					</td>
+				</tr>
+			</table>
+				
+			<table class="table">
+				<tr> 
+					<td align="center">
+						<button type="button" class="btn" onclick="sendOk();" 
+							th:text="${mode=='write'?'등록완료':'수정완료'}" ></button>
+						<button type="reset" class="btn">다시입력</button>
+						<button type="button" class="btn" 
+							th:onclick="|location.href='@{/bbs/list}'|" 
+							th:text="${mode=='write'?'등록취소':'수정취소'}" ></button>
+						
+						<input type="hidden" name="num" th:if="${dto?.num}"
+								th:value="${dto.num}">
+						<input type="hidden" name="page" th:if="${page != null}"
+								th:value="${page}">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+</div>
+
+</body>
+</html>
